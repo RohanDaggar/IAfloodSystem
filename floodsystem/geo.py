@@ -34,3 +34,18 @@ def stations_within_radius(stations, centre, r):
         if distance <= r:
                less_than_10.append(station.name)
     return less_than_10
+
+def rivers_with_station(stations):
+    river_station = set()
+    for station in stations:
+        river_station.add(station.river)
+    return sorted(river_station)
+
+def stations_by_river(stations):
+    d_stations_river = {}
+    for station in stations:
+        stations_river = [station.river,station.name]
+        d_stations_river[station.river].append(station.name)
+        if station.river in d_stations_river:
+            
+    return sorted(n_station_river)
