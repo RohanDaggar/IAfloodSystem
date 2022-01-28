@@ -8,5 +8,7 @@ geographical data.
 
 from .utils import sorted_by_key  # noqa
 
+print("random")
+
 def Func():
     pass
