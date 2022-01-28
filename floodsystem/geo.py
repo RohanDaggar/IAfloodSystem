@@ -29,7 +29,7 @@ def stations_within_radius(stations, centre, r):
     """
     
     less_than_10 = []
-    for stations in stations:
+    for station in stations:
         distance = haversine(station.coord, centre)
         if distance <= r:
                less_than_10.append(station.name)
