@@ -7,3 +7,5 @@ r = 10
 less_than_10 = stations_within_radius(stations, centre, r)
 
 print(less_than_10)
+
+assert True
