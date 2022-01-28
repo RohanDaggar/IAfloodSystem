@@ -6,6 +6,7 @@ geographical data.
 
 """
 
+from turtle import st
 from .utils import sorted_by_key  # noqa
 from haversine import haversine, Unit
 from math import sqrt
@@ -44,10 +45,8 @@ def rivers_with_station(stations):
 def stations_by_river(stations):
     d_stations_river = {}
     for station in stations:
-        stations_river = [station.river,station.name]
-        d_stations_river[station.river].append(station.name)
-        if station.river not in d_stations_river:
+        if station.river in d_stations_river:
             d_stations_river[station.river].append(station.name)
         else:
-            d_stations_river[station.river] = [d_stations_river[station.river],station.name]
-    return sorted(d_stations_river)
+            d_stations_river[station.river] = [station.name]
+    return d_stations_river
