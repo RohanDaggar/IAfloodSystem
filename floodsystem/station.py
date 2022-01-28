@@ -7,6 +7,9 @@ for manipulating/modifying station data
 """
 
 
+from typing import Tuple
+
+
 class MonitoringStation:
     """This class represents a river level monitoring station"""
 
@@ -38,3 +41,19 @@ class MonitoringStation:
         d += "   river:         {}\n".format(self.river)
         d += "   typical range: {}".format(self.typical_range)
         return d
+    
+    def typical_range_consistent(self):
+        """Checks to see if the Monitoring Station checked has a valid result for its high/low range data"""
+        return type(self.typical_range) is tuple
+
+def inconsistent_typical_range_stations(stations):
+    """Given a list of station objects, this returns a list of stations that have inconsistent data
+
+    Args:
+        stations (list): list of stations
+    """
+    returnList = []
+    for MonitoringStation in stations:
+        if MonitoringStation.typical_range_consistent() == False:
+            returnList.append(MonitoringStation)
+    return returnList
