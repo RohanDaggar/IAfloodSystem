@@ -47,6 +47,8 @@ def stations_by_river(stations):
     for station in stations:
         if station.river in d_stations_river:
             d_stations_river[station.river].append(station.name)
+            d_stations_river[station.river].sort()
         else:
             d_stations_river[station.river] = [station.name]
+    
     return d_stations_river
