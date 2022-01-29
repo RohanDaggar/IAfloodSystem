@@ -52,3 +52,16 @@ def stations_by_river(stations):
             d_stations_river[station.river] = [station.name]
     
     return d_stations_river
+
+def rivers_by_station_number(stations, N):
+    """This determins N rivers with the greatest number of monitoring stations.
+    In the case that there are more rivers with the same number of stations as the N th entry, this includes these rivers in the list.
+
+    Args:
+        stations (list): list of MonitoringStation objects
+        N (int): number of rivers
+    """
+    assert type(N) is int
+    assert type(stations) is list
+    
+    
