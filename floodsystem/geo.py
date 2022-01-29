@@ -43,6 +43,14 @@ def rivers_with_station(stations):
     return sorted(river_station)
 
 def stations_by_river(stations):
+    """Maps river names to a list of station objects
+
+    Args:
+        stations (list): list of MonitoringStation objects
+
+    Returns:
+        dictionary: the key is the river and the item is a list of stations at that river
+    """
     d_stations_river = {}
     for station in stations:
         if station.river in d_stations_river:
@@ -63,5 +71,17 @@ def rivers_by_station_number(stations, N):
     """
     assert type(N) is int
     assert type(stations) is list
+    assert N >= 1
     
+    river_stations = stations_by_river(stations)
+    river_numbers = []
+    for key in river_stations:
+        river_numbers.append((key,len(river_stations[key])))
+    river_numbers_s = sorted_by_key(river_numbers, 1, True)
+    
+    while river_numbers_s[N-1][1] == river_numbers_s[N][1]:
+        N += 1
+    
+    
+    return river_numbers_s[:N]
     
