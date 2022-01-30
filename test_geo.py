@@ -36,3 +36,10 @@ def test_rivers_by_station_number():
     assert (len(rivers_by_station_number(stations,8))) == 8
     assert (len(rivers_by_station_number(stations,9))) == 10
     assert (len(rivers_by_station_number(stations,10))) == 10
+    assert (len(rivers_by_station_number(stations,949))) == 950
+    assert (len(rivers_by_station_number(stations,950))) == 950
+    assert (len(rivers_by_station_number(stations,951))) == 950
+    assert (len(rivers_by_station_number(stations,10000))) == 950
+    
+    
+    
