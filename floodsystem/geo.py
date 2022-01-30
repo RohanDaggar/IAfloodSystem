@@ -23,8 +23,9 @@ def stations_by_distance(stations, p):
     Returns:
         list: a list of tuples in the form (name, town, distance from p)
     """
+    #the checks for the inputs into this function
     check_stations_input(stations)
-    
+    assert type(p) is tuple
     
     station_and_distance = []
     for station in stations:
@@ -40,6 +41,8 @@ def stations_within_radius(stations, centre, r):
         centre (tuple): centre co-ordinate descibed in a tuple (longitude,latitude)
         r (integer): radius r given in km
     """
+    #the checks for the inputs into this function
+    check_stations_input(stations)
     
     less_than_10 = []
     for station in stations:
@@ -57,6 +60,9 @@ def rivers_with_station(stations):
     Returns:
         [type]: [description]
     """
+    #the checks for the inputs into this function
+    check_stations_input(stations)
+    
     river_station = set() 
     for station in stations:
         river_station.add(station.river)
@@ -71,6 +77,9 @@ def stations_by_river(stations):
     Returns:
         dictionary: the key is the river and the item is a list of stations at that river
     """
+    #the checks for the inputs into this function
+    check_stations_input(stations)
+    
     d_stations_river = {}
     for station in stations:
         if station.river in d_stations_river:
@@ -89,9 +98,10 @@ def rivers_by_station_number(stations, N):
         stations (list): list of MonitoringStation objects
         N (int): number of rivers to return
     """
+    #the checks for the inputs into this function
     assert type(N) is int
-    assert type(stations) is list
     assert N >= 1
+    check_stations_input(stations)
     
     river_stations = stations_by_river(stations)
     river_numbers = []
