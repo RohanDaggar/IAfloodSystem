@@ -59,7 +59,7 @@ def stations_within_radius(stations, centre, r):
     return stations_within_distance
 
 def rivers_with_station(stations):
-    """groups stations by the same river together
+    """returns a list of all the rivers contained within the list of stations
 
     Args:
         stations (list): list of MonitoringStation objects
@@ -105,6 +105,11 @@ def rivers_by_station_number(stations, N):
     Args:
         stations (list): list of MonitoringStation objects
         N (int): number of rivers to return
+        
+    Returns:
+        list: each element is a tuple in the form (river name, number of stations by the river)
+            it is sorted from the highest number of stations down, and stations with the same number of stations are
+            sorted alphabetically
     """
     #the checks for the inputs into this function
     assert type(N) is int and N >= 1
