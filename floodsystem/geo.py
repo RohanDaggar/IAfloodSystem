@@ -8,12 +8,24 @@ geographical data.
 
 from turtle import st
 from .utils import sorted_by_key  # noqa
-from haversine import haversine, Unit
+from haversine import haversine
 from math import sqrt
-from floodsystem.station import MonitoringStation
+from floodsystem.station import MonitoringStation, check_stations_input
 
 
 def stations_by_distance(stations, p):
+    """This function generates a list of stations with their corresponding distances to a coordinate, p
+
+    Args:
+        stations (list): list of MonitoringStation objects
+        p (tuple): a point in the form (longitude,latitude)
+
+    Returns:
+        list: a list of tuples in the form (name, town, distance from p)
+    """
+    check_stations_input(stations)
+    
+    
     station_and_distance = []
     for station in stations:
         distance = haversine(station.coord, p)
@@ -24,8 +36,8 @@ def stations_within_radius(stations, centre, r):
     """Prints an alphabetic list of the stations within a radius 'r' around a centre 'centre'
 
     Args:
-        stations (list): list of the stations using the station class
-        centre (tuple): centre co-ordinate descibed in a tuple (x,y)
+        stations (list): list of MonitoringStation objects
+        centre (tuple): centre co-ordinate descibed in a tuple (longitude,latitude)
         r (integer): radius r given in km
     """
     
@@ -37,7 +49,15 @@ def stations_within_radius(stations, centre, r):
     return less_than_10
 
 def rivers_with_station(stations):
-    river_station = set()
+    """[summary]
+
+    Args:
+        stations (list): list of MonitoringStation objects
+
+    Returns:
+        [type]: [description]
+    """
+    river_station = set() 
     for station in stations:
         river_station.add(station.river)
     return sorted(river_station)
@@ -67,7 +87,7 @@ def rivers_by_station_number(stations, N):
 
     Args:
         stations (list): list of MonitoringStation objects
-        N (int): number of rivers
+        N (int): number of rivers to return
     """
     assert type(N) is int
     assert type(stations) is list
