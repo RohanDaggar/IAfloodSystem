@@ -6,9 +6,7 @@ for manipulating/modifying station data
 
 """
 
-
 from typing import Tuple
-
 
 class MonitoringStation:
     """This class represents a river level monitoring station"""
@@ -46,12 +44,36 @@ class MonitoringStation:
         """Checks to see if the Monitoring Station checked has a valid result for its high/low range data"""
         return type(self.typical_range) is tuple
 
+def check_stations_input(stations):
+    """This function checks the stations input for another fuction
+
+    Args:
+        stations (list): list of MonitoringStation objects
+
+    Raises:
+        TypeError: If the input is not a list
+        TypeError: If one of the items in the list is not a MonitoringStation object
+
+    Returns:
+        boolean: True if it passes all the tests
+    """
+    if type(stations) is not list: raise TypeError("Input variable is not a list")
+    
+    for item in stations:
+        if type(item) is not MonitoringStation:
+            raise TypeError(f"The variable, {item}, for the list imported is of type {type(item)} and not of type MonitoringStation")
+    
+    
+    return True
+
 def inconsistent_typical_range_stations(stations):
-    """Given a list of station objects, this returns a list of stations that have inconsistent data
+    """Given a list of station objects, this returns a list of stations that have inconsistent data for the high/low argument
 
     Args:
         stations (list): list of stations
     """
+    check_stations_input(stations)
+    
     returnList = []
     for MonitoringStation in stations:
         if MonitoringStation.typical_range_consistent() == False:
