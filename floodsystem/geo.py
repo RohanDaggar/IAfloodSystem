@@ -40,25 +40,34 @@ def stations_within_radius(stations, centre, r):
         stations (list): list of MonitoringStation objects
         centre (tuple): centre co-ordinate descibed in a tuple (longitude,latitude)
         r (integer): radius r given in km
+        
+    Returns:
+        list: stations 
     """
     #the checks for the inputs into this function
     check_stations_input(stations)
     
-    less_than_10 = []
+    """qlist = []
     for station in stations:
         distance = haversine(station.coord, centre)
         if distance <= r:
-               less_than_10.append(station.name)
-    return less_than_10
+               rlist.append(station.name)"""
+               
+    distance_list = stations_by_distance(stations, centre)
+    stations_within_distance = []
+    for station in distance_list:
+        if station[2] < r:
+            stations_within_distance.append(station[0])
+    return stations_within_distance
 
 def rivers_with_station(stations):
-    """[summary]
+    """groups stations by the same river together
 
     Args:
         stations (list): list of MonitoringStation objects
 
     Returns:
-        [type]: [description]
+        list: a list of rivers with at least one station
     """
     #the checks for the inputs into this function
     check_stations_input(stations)
@@ -69,13 +78,13 @@ def rivers_with_station(stations):
     return sorted(river_station)
 
 def stations_by_river(stations):
-    """Maps river names to a list of station objects
+    """groups stations by the same river together
 
     Args:
         stations (list): list of MonitoringStation objects
 
     Returns:
-        dictionary: the key is the river and the item is a list of stations at that river
+        dictionary: maps the river as the key to a list of MonitoringStation objects
     """
     #the checks for the inputs into this function
     check_stations_input(stations)
