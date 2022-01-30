@@ -14,7 +14,8 @@ from floodsystem.station import MonitoringStation, check_stations_input
 
 
 def stations_by_distance(stations, p):
-    """This function generates a list of stations with their corresponding distances to a coordinate, p
+    """This function generates a list of stations with their
+    corresponding distances to a coordinate, p
 
     Args:
         stations (list): list of MonitoringStation objects
@@ -34,7 +35,8 @@ def stations_by_distance(stations, p):
     return sorted_by_key(station_and_distance, 2)
 
 def stations_within_radius(stations, centre, r):
-    """Prints an alphabetic list of the stations within a radius 'r' around a centre 'centre'
+    """Prints an alphabetic list of the stations within a radius 'r' around
+    a centre 'centre'
 
     Args:
         stations (list): list of MonitoringStation objects
@@ -42,16 +44,12 @@ def stations_within_radius(stations, centre, r):
         r (integer): radius r given in km
         
     Returns:
-        list: stations 
+        list: station names within a distance r from point p
     """
     #the checks for the inputs into this function
     check_stations_input(stations)
-    
-    """qlist = []
-    for station in stations:
-        distance = haversine(station.coord, centre)
-        if distance <= r:
-               rlist.append(station.name)"""
+    assert type(r) is int
+    assert type(centre) is tuple and len(centre) == 2
                
     distance_list = stations_by_distance(stations, centre)
     stations_within_distance = []
@@ -101,25 +99,35 @@ def stations_by_river(stations):
 
 def rivers_by_station_number(stations, N):
     """This determins N rivers with the greatest number of monitoring stations.
-    In the case that there are more rivers with the same number of stations as the N th entry, this includes these rivers in the list.
+    In the case that there are more rivers with the same number of
+    stations as the N th entry, this includes these rivers in the list.
 
     Args:
         stations (list): list of MonitoringStation objects
         N (int): number of rivers to return
     """
     #the checks for the inputs into this function
-    assert type(N) is int
-    assert N >= 1
+    assert type(N) is int and N >= 1
     check_stations_input(stations)
-    
+
     river_stations = stations_by_river(stations)
+    
     river_numbers = []
     for key in river_stations:
         river_numbers.append((key,len(river_stations[key])))
     river_numbers_s = sorted_by_key(river_numbers, 1, True)
     
-    while river_numbers_s[N-1][1] == river_numbers_s[N][1]:
-        N += 1
+    #this makes it so rivers with the same number of stations are also all included
+    #it also makes sure not to over iterate
+    try:
+        while river_numbers_s[N-1][1] == river_numbers_s[N][1]:
+            N += 1
+    except IndexError:
+        if N > len(river_numbers):
+            print(f"Input N of {N} is greater than the list of rivers of length {len(river_numbers)}, so all the rivers are being returned")
+        else:
+            print("Max rivers reached, returning all values")
+        return river_numbers_s
     
     return river_numbers_s[:N]
     
