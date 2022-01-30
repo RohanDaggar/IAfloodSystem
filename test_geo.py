@@ -8,6 +8,10 @@ from floodsystem.geo import *
 def test_stations_by_distance():
     result = stations_by_distance(stations,(0,0))
     
+    #this first tests that all the stations are very far from (0,0), which it should be
+    for item in result:
+        assert item[2] > 5000
+    
 
 def test_rivers_by_station_number():
     #runs through known answers
@@ -25,5 +29,3 @@ def test_stations_within_radius():
     
     #checks that some stations are within cam
     assert len(stations_within_radius(stations, (52.2053, 0.1218), 10)) > 0
-    
-    
