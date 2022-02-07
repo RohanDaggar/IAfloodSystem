@@ -12,3 +12,7 @@ def run():
     inconsistent_list_names.sort()
 
     print(inconsistent_list_names)
+
+if __name__ == "__main__":
+    print("*** Task 1F: CUED Part IA Flood Warning System ***")
+    run()
