@@ -31,8 +31,8 @@ def stations_by_distance(stations, p):
     station_and_distance = []
     for station in stations:
         distance = haversine(station.coord, p)
-        station_and_distance.append([station.name, station.town, distance])
-    return sorted_by_key(station_and_distance, 2)
+        station_and_distance.append([station, distance])
+    return sorted_by_key(station_and_distance, 1)
 
 def stations_within_radius(stations, centre, r):
     """Prints an alphabetic list of the stations within a radius 'r' around
@@ -54,7 +54,7 @@ def stations_within_radius(stations, centre, r):
     distance_list = stations_by_distance(stations, centre)
     stations_within_distance = []
     for station in distance_list:
-        if station[2] < r:
+        if station[1] < r:
             stations_within_distance.append(station[0])
     return stations_within_distance
 
