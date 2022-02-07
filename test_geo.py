@@ -10,7 +10,7 @@ def test_stations_by_distance():
     
     #this first tests that all the stations are very far from (0,0), which it should be
     for item in result:
-        assert item[2] > 5000
+        assert item[1] > 5000
     
 def test_stations_within_radius():
     #checks that no stations are around (0,0)
