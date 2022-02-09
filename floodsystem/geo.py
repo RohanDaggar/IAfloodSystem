@@ -22,7 +22,8 @@ def stations_by_distance(stations, p):
         p (tuple): a point in the form (longitude,latitude)
 
     Returns:
-        list: a list of tuples in the form (name, town, distance from p)
+        list: a sorted by distance list of tuples in the form (station, distance from p) where station is
+              a MonitoringStation object and distance from p is a float
     """
     #the checks for the inputs into this function
     check_stations_input(stations)
@@ -30,6 +31,14 @@ def stations_by_distance(stations, p):
     
     station_and_distance = []
     for station in stations:
+        #some error checks are done here
+        if type(station.coord) is not tuple:
+            raise TypeError(f"Station: {station}\n has an invalid co-ordinate of type {type(station.coord)}, but it should be a tuple")
+        if len(station.coord) != 2:
+            raise TypeError(f"Station: {station}\n is a tuple but of invalid length of {len(station.coord)}, but it should be 2")
+        if type(station.coord[0]) is not float or type(station.coord[1]) is not float:
+            raise TypeError(f"Station: {station}\n has an invalid long/lat: {station.coord}, but it should be a float")
+        
         distance = haversine(station.coord, p)
         station_and_distance.append([station, distance])
     return sorted_by_key(station_and_distance, 1)
@@ -44,7 +53,7 @@ def stations_within_radius(stations, centre, r):
         r (integer): radius r given in km
         
     Returns:
-        list: station names within a distance r from point p
+        list: Station names within a distance r from point p
     """
     #the checks for the inputs into this function
     check_stations_input(stations)
