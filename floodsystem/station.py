@@ -51,19 +51,36 @@ def check_stations_input(stations):
         stations (list): list of MonitoringStation objects
 
     Raises:
-        TypeError: If the input is not a list
-        TypeError: If one of the items in the list is not a MonitoringStation object
+        Exception: If the input is not a list
+        Exception: If one of the items in the list is not a MonitoringStation object
 
     Returns:
-        boolean: True if it passes all the tests
+        boolean: True if it passes all the tests, else an Exception
     """
-    if type(stations) is not list: raise TypeError("Input variable is not a list")
-    
+    if type(stations) is not list: raise Exception("Input variable is not a list")
     for item in stations:
         if type(item) is not MonitoringStation:
-            raise TypeError(f"The variable, {item}, for the list imported is of type {type(item)} and not of type MonitoringStation")
-    
-    
+            raise Exception(f"The variable, {item}, for the list imported is of type {type(item)} and not of type MonitoringStation")
+    return True
+
+def check_coordinate(p):
+    """Checks that the input is of the correct type for a coordinate
+
+    Args:
+        p (tulpe): (longitude,latitude)
+
+    Raises:
+        Exception: If it 
+
+    Returns:
+        boolean: True if it passes all tests, else an Exception
+    """
+    if type(p) is not tuple:
+            raise Exception(f"{p} is of invalid co-ordinate of type {type(p)}, but it should be a tuple")
+    if len(p) != 2:
+        raise Exception(f"{p} is a tuple but of invalid length of {len(p)}, but it should be 2")
+    if (type(p[0]) is not float and type(p[0]) is not int) or (type(p[1]) is not float and type(p[1]) is not int):
+        raise Exception(f"{p} is the correct type and length, but it should be made of floats or ints to represent the long and lat")
     return True
 
 def inconsistent_typical_range_stations(stations):
