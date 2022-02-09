@@ -63,7 +63,7 @@ def check_stations_input(stations):
             raise Exception(f"The variable, {item}, for the list imported is of type {type(item)} and not of type MonitoringStation")
     return True
 
-def check_coordinate(p):
+def check_coordinate_input(p):
     """Checks that the input is of the correct type for a coordinate
 
     Args:
