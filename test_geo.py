@@ -1,5 +1,5 @@
 """Unit test for the geo module"""
-
+import pytest
 from floodsystem.stationdata import build_station_list
 stations = build_station_list()
 
@@ -11,6 +11,12 @@ def test_stations_by_distance():
     #this first tests that all the stations are very far from (0,0), which it should be
     for item in result:
         assert item[1] > 5000
+    
+    #these lines makes sure an ValueError is raised for the wrong input
+    #with pytest.raises(Exception) as e_info:
+    #    x = stations_by_distance(stations,(0,0,"how did this get in here"))
+    #with pytest.raises(Exception) as e_info:
+    #    x = stations_by_distance(stations,(0,"how did this get in here"))
     
 def test_stations_within_radius():
     #checks that no stations are around (0,0)

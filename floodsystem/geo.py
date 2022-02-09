@@ -10,7 +10,7 @@ from turtle import st
 from .utils import sorted_by_key  # noqa
 from haversine import haversine
 from math import sqrt
-from floodsystem.station import MonitoringStation, check_stations_input
+from floodsystem.station import MonitoringStation, check_stations_input, check_coordinate_input
 
 
 def stations_by_distance(stations, p):
@@ -27,25 +27,19 @@ def stations_by_distance(stations, p):
     """
     #the checks for the inputs into this function
     check_stations_input(stations)
-    assert type(p) is tuple
+    check_coordinate_input(p)
     
     station_and_distance = []
     for station in stations:
         #some error checks are done here
-        if type(station.coord) is not tuple:
-            raise TypeError(f"Station: {station}\n has an invalid co-ordinate of type {type(station.coord)}, but it should be a tuple")
-        if len(station.coord) != 2:
-            raise TypeError(f"Station: {station}\n is a tuple but of invalid length of {len(station.coord)}, but it should be 2")
-        if type(station.coord[0]) is not float or type(station.coord[1]) is not float:
-            raise TypeError(f"Station: {station}\n has an invalid long/lat: {station.coord}, but it should be a float")
+        check_coordinate_input(station.coord)
         
         distance = haversine(station.coord, p)
         station_and_distance.append([station, distance])
     return sorted_by_key(station_and_distance, 1)
 
 def stations_within_radius(stations, centre, r):
-    """Prints an alphabetic list of the stations within a radius 'r' around
-    a centre 'centre'
+    """returns a list of all stations (type MonitoringStation) within radius 'r' of a geographic coordinate 'centre'.
 
     Args:
         stations (list): list of MonitoringStation objects
@@ -57,16 +51,18 @@ def stations_within_radius(stations, centre, r):
     """
     #the checks for the inputs into this function
     check_stations_input(stations)
-    assert type(r) is int
-    assert type(centre) is tuple and len(centre) == 2
-               
-    distance_list = stations_by_distance(stations, centre)
-    stations_within_distance = []
-    for station in distance_list:
-        if station[1] < r:
-            #stations_within_distance.append(station[0])
-            stations_within_distance.append(station)
-    return stations_within_distance
+    assert type(r) is int or type(r) is float
+    check_coordinate_input(centre)
+    
+    
+    #distance_list = stations_by_distance(stations, centre)
+    #stations_within_distance = []
+    #for station in distance_list:
+    #    if station[1] < r:
+    #        stations_within_distance.append(station)
+    #stations_within_distance = [station for station in stations_by_distance(stations, centre) if station[1] < r]
+    
+    return [station for station in stations_by_distance(stations, centre) if station[1] < r]
 
 def rivers_with_station(stations):
     """returns a list of all the rivers contained within the list of stations
@@ -82,6 +78,7 @@ def rivers_with_station(stations):
     
     river_station = set() 
     for station in stations:
+        assert type(station.river) is string
         river_station.add(station.river)
     return sorted(river_station)
 
