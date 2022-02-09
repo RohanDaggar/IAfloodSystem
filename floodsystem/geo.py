@@ -61,8 +61,8 @@ def stations_within_radius(stations, centre, r):
     #    if station[1] < r:
     #        stations_within_distance.append(station)
     #stations_within_distance = [station for station in stations_by_distance(stations, centre) if station[1] < r]
-    
-    return [station for station in stations_by_distance(stations, centre) if station[1] < r]
+    #return stations_within_distance
+    return [station[0] for station in stations_by_distance(stations, centre) if station[1] < r]
 
 def rivers_with_station(stations):
     """returns a list of all the rivers contained within the list of stations
