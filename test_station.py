@@ -3,8 +3,8 @@
 # SPDX-License-Identifier: MIT
 """Unit test for the station module"""
 
-from floodsystem.station import MonitoringStation
-
+from floodsystem.station import MonitoringStation, check_coordinate_input
+import pytest
 
 def test_create_monitoring_station():
 
@@ -25,3 +25,20 @@ def test_create_monitoring_station():
     assert s.typical_range == trange
     assert s.river == river
     assert s.town == town
+
+def test_check_coordinate_input():
+    #checks working coordinates to make sure the test function works
+    
+    check_coordinate_input((0,0))
+    check_coordinate_input((0.5431,0.6431))
+    check_coordinate_input((-3252,5123.5325))
+    check_coordinate_input((-34,0))
+    check_coordinate_input((0.0,-5.2))
+    
+    #checks invalid coordinates to make sure it returns an exception
+    with pytest.raises(Exception) as e_info:
+        check_coordinate_input(0)
+        check_coordinate_input("Test")
+        check_coordinate_input([0,0])
+        check_coordinate_input(("Hi",0))
+        check_coordinate_input((0,0,0,5))
