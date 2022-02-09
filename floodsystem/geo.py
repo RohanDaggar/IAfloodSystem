@@ -47,7 +47,7 @@ def stations_within_radius(stations, centre, r):
         r (integer): radius r given in km
         
     Returns:
-        list: Station names within a distance r from point p
+        list: MonitoringStation objects within a distance r from the centre
     """
     #the checks for the inputs into this function
     check_stations_input(stations)
