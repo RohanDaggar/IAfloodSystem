@@ -13,10 +13,10 @@ def test_stations_by_distance():
         assert item[1] > 5000
     
     #these lines makes sure an ValueError is raised for the wrong input
-    #with pytest.raises(Exception) as e_info:
-    #    x = stations_by_distance(stations,(0,0,"how did this get in here"))
-    #with pytest.raises(Exception) as e_info:
-    #    x = stations_by_distance(stations,(0,"how did this get in here"))
+    with pytest.raises(Exception) as e_info:
+        x = stations_by_distance(stations,(0,0,"how did this get in here"))
+    with pytest.raises(Exception) as e_info:
+        x = stations_by_distance(stations,(0,"how did this get in here"))
     
 def test_stations_within_radius():
     #checks that no stations are around (0,0)
@@ -28,12 +28,10 @@ def test_stations_within_radius():
     assert len(stations_within_radius(stations, (52.2053, 0.1218), 10)) > 0
 
 def test_rivers_with_stations():
-    pass
-    #! impliment a test here
+    rivers_with_station(stations)
 
 def test_stations_by_river():
-    pass
-    #! impliment a test here
+    stations_by_river(stations)
 
 def test_rivers_by_station_number():
     #runs through known answers
@@ -46,6 +44,3 @@ def test_rivers_by_station_number():
     assert (len(rivers_by_station_number(stations,950))) == 950
     assert (len(rivers_by_station_number(stations,951))) == 950
     assert (len(rivers_by_station_number(stations,10000))) == 950
-    
-    
-    
