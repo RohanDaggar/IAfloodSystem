@@ -78,7 +78,7 @@ def rivers_with_station(stations):
     
     river_station = set() 
     for station in stations:
-        assert type(station.river) is string
+        assert type(station.river) is str
         river_station.add(station.river)
     return sorted(river_station)
 
