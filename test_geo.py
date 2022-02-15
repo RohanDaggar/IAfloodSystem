@@ -28,10 +28,10 @@ def test_stations_within_radius():
     assert len(stations_within_radius(stations, (52.2053, 0.1218), 10)) > 0
 
 def test_rivers_with_stations():
-    rivers_with_station(stations)
+    x = rivers_with_station(stations)
 
 def test_stations_by_river():
-    stations_by_river(stations)
+    x = stations_by_river(stations)
 
 def test_rivers_by_station_number():
     #runs through known answers
