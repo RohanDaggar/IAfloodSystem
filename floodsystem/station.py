@@ -6,7 +6,6 @@ for manipulating/modifying station data
 
 """
 
-from typing import Tuple
 
 class MonitoringStation:
     """This class represents a river level monitoring station"""
@@ -43,6 +42,21 @@ class MonitoringStation:
     def typical_range_consistent(self):
         """Checks to see if the Monitoring Station checked has a valid result for its high/low range data"""
         return type(self.typical_range) is tuple
+    
+    def relative_water_level(self):
+        """Returns the latest water level as a fraction of the typical range
+        i.e. ratio of 1.0 corresponds to a level at the typical high and a ratio
+        of 0.0 corresponds to a level at the typical low
+
+        Returns:
+            float
+        """
+        try:
+            return (self.latest_level-self.typical_range[0]) / (self.typical_range[1]-self.typical_range[0])
+        except ZeroDivisionError:
+            return None #when the range data low and high are the same number
+        except TypeError:
+            return None #when there is no range data
 
 def check_stations_input(stations):
     """This function checks the stations input for another fuction
