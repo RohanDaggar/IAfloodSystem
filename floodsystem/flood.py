@@ -29,4 +29,13 @@ def stations_level_over_threshold(stations, tol):
 
 def stations_highest_rel_level(stations, N):
     
+    check_stations_input(stations)
+    assert type(N) is int
+    
+    sorted_list = stations_level_over_threshold(stations, -100) #The -100 returns all stations, sorted
+    just_objects_list = [item[0] for item in sorted_list]
+    
+    return just_objects_list[:N]
+    
+    
     
