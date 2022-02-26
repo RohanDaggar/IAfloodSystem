@@ -48,7 +48,7 @@ def run():
     #d = np.asarray(b)
     #print(d.flatten()[:,1])
     #plot_water_levels(station, dates, levels)
-    for s in station:
+    for s in range(len(station)):
         dates, levels = fetch_measure_levels(station[s].measure_id,
                                      dt=datetime.timedelta(days=10))
         plot_water_levels(s,dates,levels)
