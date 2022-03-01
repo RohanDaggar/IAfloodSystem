@@ -7,7 +7,6 @@ def plot_water_levels(station, dates, levels):
     plt.axhline(y=0, label="Typical Low")
     plt.axhline(y=1, label="Typical High")
     
-    plt.title('stations.name')
     plt.xlabel('Date')
     plt.ylabel('Water Level (m)')
     plt.xticks(rotation=45)
