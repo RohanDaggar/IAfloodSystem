@@ -21,6 +21,8 @@ def stations_level_over_threshold(stations, tol):
     for station in stations:
         try:
             if station.relative_water_level() > tol:
+                if station.relative_water_level() > 500:
+                    break
                 rlist.append((station, station.relative_water_level()))
         except TypeError:
             pass
